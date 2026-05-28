@@ -1,0 +1,10 @@
+{
+  "hosted-zone:account=313753089884:domainName=grahamveitch.com:region=us-east-1": {
+    "Id": "/hostedzone/Z04772761JEX39DPHWP64",
+    "Name": "grahamveitch.com."
+  },
+  "hosted-zone:account=313753089884:domainName=grahamveitch.com:region=eu-west-2": {
+    "Id": "/hostedzone/Z04772761JEX39DPHWP64",
+    "Name": "grahamveitch.com."
+  }
+}

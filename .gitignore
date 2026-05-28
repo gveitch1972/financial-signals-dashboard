@@ -1,0 +1,7 @@
+node_modules
+cdk.out
+.cdk.staging
+dist
+*.local
+.DS_Store
+*.env
