@@ -15,8 +15,9 @@ export default function App() {
     fetch(DATA_URL)
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
-        return r.json()
+        return r.text()
       })
+      .then(text => JSON.parse(text.replace(/:\s*NaN/g, ': null')))
       .then(setData)
       .catch(e => setError(e.message))
   }, [])
