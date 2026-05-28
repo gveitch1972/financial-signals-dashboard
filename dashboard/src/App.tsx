@@ -22,7 +22,17 @@ export default function App() {
       .catch(e => setError(e.message))
   }, [])
 
-  const lastUpdated = data?.[0]?.ingested_at?.split(' ')[0] ?? '—'
+  const latest = (() => {
+    if (!data) return null
+    const maxDate = data.reduce((m, r) => r.snapshot_date > m ? r.snapshot_date : m, '')
+    const bySymbol = new Map<string, MarketSnapshot>()
+    data
+      .filter(r => r.snapshot_date === maxDate)
+      .forEach(r => bySymbol.set(r.symbol, r))
+    return [...bySymbol.values()]
+  })()
+
+  const lastUpdated = latest?.[0]?.snapshot_date ?? '—'
 
   return (
     <div className="min-h-screen bg-[#0f1117] text-white p-6 font-sans">
@@ -41,12 +51,12 @@ export default function App() {
         <div className="text-gray-400 text-sm">Loading…</div>
       )}
 
-      {data && (
+      {latest && (
         <>
-          <KpiStrip data={data} />
+          <KpiStrip data={latest} />
           <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <DayChangeChart data={data} />
-            <ReturnsChart data={data} />
+            <DayChangeChart data={latest} />
+            <ReturnsChart data={latest} />
           </div>
         </>
       )}
